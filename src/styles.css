@@ -7,35 +7,66 @@
 body {
   margin: 0;
   padding: 20px;
-  font-family: sans-serif;
+  font-family: roboto, sans-serif;
   color: darkslategray;
   background: papayawhip;
 }
 
+h1 {
+  padding: 10px;
+}
+
 form {
-  margin: 10px;
+  background: peachpuff;
+  margin: 10px 0;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  xdisplay: grid;
+  xgrid-template-columns: 1fr 20px 1fr 20px;
+  xgrid-template-rows: 20px 1fr;
+  xgrid-gap: 5px;
+  xgrid-area: " "
+}
+
+form * {
+  marign: 5px;
+}
+
+form>button {
+  align-self: center;
+  xjustify-self: flex-end;
+  padding: 10px;
+}
+
+form>textarea, label {
+  margin: 5px;
+  flex-grow: 1;
+}
+
+input, textarea {
   padding: 5px;
-}
-
-input {
   font-size: 1em;
+  xflex-grow: 2;
+  width: 100%;
 }
 
-li {
+.card {
   box-shadow: 4px 5px 8px -8px rgba(25, 25, 112, .6);
   background: rgb(255, 250, 241);
-  margin: 10px;
+  margin: 10px 0;
   padding: 5px;
   list-style-type: none;
   display: flex;
   flex-direction: column;
 }
 
-li>* {
+.card>* {
   margin: 5px;
 }
 
-li>header {
+.card>header {
   display: flex;
   justify-content: space-between;
 }
@@ -45,16 +76,29 @@ h3 {
   margin: 1px;
 }
 
-.bookmarked {
-  background: peachpuff;
-}
-
 .tag {
   margin: 2px;
   padding: 5px;
   display: inline-block;
-  xbackground: peachpuff;
   background: papayawhip;
   border-radius: 5px;
   box-shadow: 4px 5px 8px -8px rgba(25, 25, 112, .6)
+}
+
+.card-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-button {
+  margin: 5px;
+  padding: 5px;
+}
+
+.card-button-bookmark {
+  align-self: flex-end;
+}
+
+.bookmarked {
+  background: peachpuff;
 }
