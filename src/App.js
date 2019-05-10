@@ -27,24 +27,29 @@ export default class App extends Component {
       <main>
         <h1>Cards</h1>
         <Form onSubmit={this.handleSubmit} />
-        <CardList cardList={cards} bookmarkOnClick={this.handleUpdateCard} />
+        <CardList
+          cardList={cards}
+          bookmarkOnClick={this.handleUpdateCard}
+          editOnClick={this.handleEditOnClick}
+        />
       </main>
     );
   }
 
   handleSubmit = ({ newCard }) => {
-    console.log(' handleSubmit: ', newCard);
-
-    // First Create new card in DB , then update state
     postCards(newCard)
       .then((res) => res.json())
-      .then((data) => {
-        this.setState({ cards: [...this.state.cards, data] });
+      .then((newCard) => {
+        this.setState({
+          cards: [newCard, ...this.state.cards],
+        });
         setLocal('cards', this.state.cards);
       })
       .catch((error) => console.log(error));
+  };
 
-    console.log('ADDED CARD ');
+  handleEditOnClick = (card) => {
+    console.log('tja, wie kann ich nun auf das frm zugreifen?');
   };
 
   handleUpdateCard = (card) => {
