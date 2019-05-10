@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import { getCards } from './services';
+import { getCards, postCards, getLocal, setLocal } from './services';
 import CardList from './components/CardList';
 import { Form } from './components/Form';
 
 export default class App extends Component {
   state = {
-    cards: [],
+    cards: getLocal('cards') || [],
   };
 
   componentDidMount() {
     getCards()
-      .then((data) => this.setState({ cards: data }))
+      .then((data) => {
+        this.setState({ cards: data });
+        setLocal('cards', this.state.cards);
+      })
       .catch((error) => console.log(error));
+
+    console.log('state:', this.state.cards);
+    setLocal('cards', this.state.cards);
   }
 
   render() {
     const { cards } = this.state;
-    console.log('cards array? ', cards);
+    console.log('RENDER: cards array? ', cards);
     return (
       <main>
         <h1>Cards</h1>
@@ -26,10 +32,18 @@ export default class App extends Component {
     );
   }
 
-  handleSubmit = ({ event, newCard }) => {
-    event.preventDefault();
+  handleSubmit = ({ newCard }) => {
     console.log(' handleSubmit: ', newCard);
 
-    this.setState({ ...this.state.cards, newCard });
+    // First Create new card in DB , then update state
+    postCards(newCard)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ cards: [...this.state.cards, data] });
+        setLocal('cards', this.state.cards);
+      })
+      .catch((error) => console.log(error));
+
+    console.log('ADDED CARD ');
   };
 }
