@@ -24,9 +24,12 @@ app.patch('/cards/:id', (req, res) => {
 });
 
 app.delete('/cards/:id', (req, res) => {
-  //Card.findByIdAndDelete(req.body._id)
-  Card.deleteOne({ _id: req.body._id }
+  //Card.deleteOne({ _id: req.body._id }
+  console.log('id>? ', req.params.id);
+
+  Card.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data))
     .catch((err) => res.json({ errors: [err] }));
+
   console.log('Successful User Update: delete Card!');
 });
