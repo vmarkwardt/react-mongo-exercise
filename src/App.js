@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getCards } from './services';
+import CardList from './components/CardList';
 
 export default class App extends Component {
   state = {
@@ -7,23 +8,23 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    console.log('componentDidMount');
     getCards()
       .then((data) => this.setState({ cards: data }))
       .catch((error) => console.log(error));
+    console.log('componentDidMount');
   }
 
   render() {
     const { cards } = this.state;
-
+    console.log('cards array? ', cards);
     return (
       <main>
         <h1>Cards</h1>
-        <ul>
-          {cards.map((card) => (
-            <li key={card._id}>{card.title}</li>
-          ))}
-        </ul>
+
+        <CardList cardList={cards} />
       </main>
     );
   }
 }
+
