@@ -8,14 +8,19 @@ export function Form({ onSubmit }) {
         <input name="title" type="text" placeholder="title" />
       </label>
       <label>
-        Description:
-        <input name="description" type="text" placeholder="description" />
-      </label>
-      <label>
         Tags:
         <input name="tags" type="text" placeholder="tag1, tag2, tag3" />
       </label>
 
+      <label>
+        Description:
+        <textarea
+          name="description"
+          type="text"
+          rows={3}
+          placeholder="description"
+        />
+      </label>
       <button> Add Card </button>
     </form>
   );
