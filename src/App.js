@@ -16,13 +16,11 @@ export default class App extends Component {
       })
       .catch((error) => console.log(error));
 
-    console.log('state:', this.state.cards);
     setLocal('cards', this.state.cards);
   }
 
   render() {
     const { cards } = this.state;
-    console.log('RENDER: cards array? ', cards);
     return (
       <main>
         <h1>Cards</h1>
