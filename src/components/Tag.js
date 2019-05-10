@@ -5,7 +5,9 @@ export default function Tag({ tagList }) {
   return (
     <p>
       {tagList.map((tag) => (
-        <span className="tag">{tag}</span>
+        <span key={tag} className="tag">
+          {tag}
+        </span>
       ))}
     </p>
   );
