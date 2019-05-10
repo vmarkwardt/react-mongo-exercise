@@ -17,8 +17,7 @@ app.post('/cards', (req, res) => {
 });
 
 app.patch('/cards/:id', (req, res) => {
-  const { _id } = req.params;
-  Card.findByIdAndUpdate(_id, req.body, { new: true }) //das neue Element soll zurück gegeben werden
+  Card.findByIdAndUpdate(req.body._id, req.body, { new: true }) //das neue Element soll zurück gegeben werden
     .then((data) => res.json(data))
     .catch((err) => res.json({ errors: [err] }));
   console.log('Successful User Update: patch Card');
