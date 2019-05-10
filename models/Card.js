@@ -12,6 +12,10 @@ const cardSchema = new mongoose.Schema({
   tags: {
     type: [String],
   },
+  isBookmarked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('Card', cardSchema);
