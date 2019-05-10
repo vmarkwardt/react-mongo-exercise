@@ -2,22 +2,18 @@ import React from 'react';
 
 export function Form({ onSubmit }) {
   return (
-    <form
-      onSubmit={(event) => {
-        formSubmit;
-      }}
-    >
+    <form onSubmit={formSubmit}>
       <label>
         Title:
-        <input name="title" type="text" />
+        <input name="title" type="text" placeholder="title" />
       </label>
       <label>
         Description:
-        <input name="description" type="text" />
+        <input name="description" type="text" placeholder="description" />
       </label>
       <label>
         Tags:
-        <input name="tags" type="text" />
+        <input name="tags" type="text" placeholder="tag1, tag2, tag3" />
       </label>
 
       <button> Add Card </button>
@@ -25,15 +21,16 @@ export function Form({ onSubmit }) {
   );
 
   function formSubmit(event) {
+    event.preventDefault();
     const form = event.target;
 
     const newCard = {
-      title: form.title,
-      description: form.description,
-      tags: form.tags.split(', '),
+      title: form.title.value,
+      description: form.description.value,
+      tags: form.tags.value.split(', '),
     };
 
-    onSubmit({event, newCard});
+    onSubmit({ newCard });
   }
 }
 
