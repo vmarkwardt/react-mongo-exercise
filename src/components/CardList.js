@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-export default function CardList({ cardList, bookmarkOnClick, editOnClick }) {
+export default function CardList({ cardList, bookmarkOnClick, editOnClick,deleteOnClick }) {
   return (
     <ul>
       {cardList.map((card) => (
@@ -10,6 +10,7 @@ export default function CardList({ cardList, bookmarkOnClick, editOnClick }) {
           key={card._id}
           bookmarkOnClick={bookmarkOnClick}
           editOnClick={editOnClick}
+          deleteOnClick={deleteOnClick}
         />
       ))}
     </ul>

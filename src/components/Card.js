@@ -1,7 +1,12 @@
 import React from 'react';
 import Tag from './Tag';
 
-export default function Card({ card, bookmarkOnClick, editOnClick }) {
+export default function Card({
+  card,
+  bookmarkOnClick,
+  editOnClick,
+  deleteOnClick,
+}) {
   return (
     <li className="card">
       <header>
@@ -20,7 +25,7 @@ export default function Card({ card, bookmarkOnClick, editOnClick }) {
           </button>
           <button
             className="card-button button-delete-card"
-            onClick={editOnClick}
+            onClick={() => deleteOnClick(card._id)}
           >
             Delete
           </button>
@@ -32,7 +37,10 @@ export default function Card({ card, bookmarkOnClick, editOnClick }) {
               : 'card-button card-button-bookmark'
           }
           onClick={() =>
-            bookmarkOnClick({ ...card, isBookmarked: !card.isBookmarked })
+            bookmarkOnClick({
+              ...card,
+              isBookmarked: !card.isBookmarked,
+            })
           }
         >
           {card.isBookmarked ? 'bookmarked' : 'bookmark'}
