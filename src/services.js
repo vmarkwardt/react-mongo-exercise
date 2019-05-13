@@ -1,11 +1,9 @@
-export function getCards() {
-  return fetch('/cards').then((res) => res.json());
+export async function getCards() {
+  const res = await fetch('/cards');
+  return await res.json();
 }
 
 export function postCards(card) {
-  //
-  console.log('services.js -> postCards: ', card);
-
   return fetch('/cards', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -18,6 +16,16 @@ export function patchCard(card) {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(card),
+  }).then((res) => res.json);
+}
+
+export function deleteCard(id) {
+  console.log('services.js -> DELETE Cards: ', id);
+
+  return fetch(`/cards/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: id }),
   }).then((res) => res.json);
 }
 
