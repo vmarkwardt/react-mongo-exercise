@@ -5,6 +5,7 @@ const Card = require('./models/Card');
 
 app.get('/cards', (req, res) => {
   Card.find()
+    .sort({ createDate: 'desc' })
     .then((cards) => res.json(cards))
     .catch((err) => res.json(err));
 });
