@@ -12,25 +12,27 @@ app.get('/cards', (req, res) => {
 
 app.post('/cards', (req, res) => {
   Card.create(req.body)
-    .then((card) => res.status(201).json(card))
+    .then((card) => {
+      res.status(201).json(card);
+      console.log('Successful User Update: create Card');
+    })
     .catch((err) => res.status(500).json(err));
-  console.log('Successful User Update: create Card');
 });
 
 app.patch('/cards/:id', (req, res) => {
   Card.findByIdAndUpdate(req.body._id, req.body, { new: true }) //das neue Element soll zurück gegeben werden
-    .then((data) => res.json(data))
+    .then((data) => {
+      res.json(data);
+      console.log('Successful User Update: patch Card');
+    })
     .catch((err) => res.json({ errors: [err] }));
-  console.log('Successful User Update: patch Card');
 });
 
 app.delete('/cards/:id', (req, res) => {
-  //Card.deleteOne({ _id: req.body._id }
-  console.log('id>? ', req.params.id);
-
   Card.findByIdAndDelete(req.params.id)
-    .then((data) => res.json(data))
+    .then((data) => {
+      res.json(data);
+      console.log('Successful User Update: delete Card!');
+    })
     .catch((err) => res.json({ errors: [err] }));
-
-  console.log('Successful User Update: delete Card!');
 });
