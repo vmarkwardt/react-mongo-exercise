@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { getCards, postCards, getLocal, setLocal, patchCard } from './services';
+import {
+  getCards,
+  postCards,
+  getLocal,
+  setLocal,
+  patchCard,
+  deleteCard,
+} from './services';
 import CardList from './components/CardList';
 import { Form } from './components/Form';
 
@@ -9,6 +16,10 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    this.getCardsUpdateStateLS();
+  }
+
+  getCardsUpdateStateLS() {
     getCards()
       .then((data) => {
         this.setState({ cards: data });
@@ -23,12 +34,13 @@ export default class App extends Component {
     const { cards } = this.state;
     return (
       <main>
-        <h1>Cards</h1>
+        <h1>gfK Workshops</h1>
         <Form onSubmit={this.handleSubmit} />
         <CardList
           cardList={cards}
           bookmarkOnClick={this.handleUpdateCard}
           editOnClick={this.handleEditOnClick}
+          deleteOnClick={this.handleDeleteCard}
         />
       </main>
     );
@@ -56,10 +68,17 @@ export default class App extends Component {
       .catch((error) => console.log('Error at update card: ', error));
   };
 
+  handleDeleteCard = (_id) => {
+    deleteCard(_id)
+      .then((data) => this.getCardsUpdateStateLS())
+      .catch((error) => console.log('Error at update card: ', error));
+  };
+
   updateState = (card) => {
     const cardsCopy = [...this.state.cards];
     const index = cardsCopy.map((item) => item._id).indexOf(card._id);
     cardsCopy[index] = card;
     this.setState({ cards: cardsCopy });
+    setLocal('cards', cardsCopy);
   };
 }
