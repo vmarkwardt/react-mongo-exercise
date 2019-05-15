@@ -1,14 +1,6 @@
 import React from 'react';
 
-export default function Tag({ tagList }) {
+export default function Tag({ className, tag }) {
   //return <p className="tag">Tags -> {tagList.join(', ')}</p>;
-  return (
-    <p>
-      {tagList.map((tag) => (
-        <span key={tag} className="tag">
-          {tag}
-        </span>
-      ))}
-    </p>
-  );
+  return <li className={className}>{tag} </li>;
 }
