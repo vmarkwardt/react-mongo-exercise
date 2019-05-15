@@ -19,6 +19,13 @@ export default class App extends Component {
     this.getCardsUpdateStateLS();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { cards } = this.state;
+    if (prevState.cards !== cards) {
+      setLocal('cards', cards);
+    }
+  }
+
   getCardsUpdateStateLS() {
     getCards()
       .then((data) => {
@@ -32,6 +39,7 @@ export default class App extends Component {
 
   render() {
     const { cards } = this.state;
+    //console.log(JSON.stringify(cards));
     return (
       <main>
         <h1>gfK Workshops</h1>
@@ -48,7 +56,6 @@ export default class App extends Component {
 
   handleSubmit = ({ newCard }) => {
     postCards(newCard)
-      .then((res) => res.json())
       .then((newCard) => {
         this.setState({
           cards: [newCard, ...this.state.cards],
@@ -63,8 +70,9 @@ export default class App extends Component {
   };
 
   handleUpdateCard = (card) => {
-    patchCard(card)
-      .then(() => this.updateState(card))
+    this.updateState(card);
+    patchCard(card)  
+      .then((card) => console.log('updatedCard: ', card))
       .catch((error) => console.log('Error at update card: ', error));
   };
 

@@ -8,9 +8,10 @@ export function postCards(card) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(card),
-  });
+  }).then((res) => res.json());
 }
 
+// 
 export function patchCard(card) {
   return fetch(`/cards/${card._id}`, {
     method: 'PATCH',
