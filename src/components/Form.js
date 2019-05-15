@@ -27,12 +27,15 @@ export function Form({ onSubmit }) {
 
   function formSubmit(event) {
     event.preventDefault();
-    const form = event.target;
+    const { target: form } = event;
 
     const newCard = {
-      title: form.title.value,
-      description: form.description.value,
-      tags: form.tags.value.split(', '),
+      title: form.title.value.trim(),
+      description: form.description.value.trim(),
+      tags: form.tags.value
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter((tag) => !!tag), //.filter(Boolean)
     };
 
     onSubmit({ newCard });
