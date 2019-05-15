@@ -23,20 +23,14 @@ form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  xdisplay: grid;
-  xgrid-template-columns: 1fr 20px 1fr 20px;
-  xgrid-template-rows: 20px 1fr;
-  xgrid-gap: 5px;
-  xgrid-area: " "
 }
 
 form * {
-  marign: 5px;
+  margin: 5px;
 }
 
 form>button {
   align-self: center;
-  xjustify-self: flex-end;
   padding: 10px;
 }
 
@@ -48,7 +42,6 @@ form>textarea, label {
 input, textarea {
   padding: 5px;
   font-size: 1em;
-  xflex-grow: 2;
   width: 100%;
 }
 
