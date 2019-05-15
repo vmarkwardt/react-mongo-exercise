@@ -10,6 +10,7 @@ import {
 import CardList from './components/CardList';
 import { Form } from './components/Form';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from './components/Header';
 
 export default class App extends Component {
   state = {
@@ -40,11 +41,11 @@ export default class App extends Component {
 
   render() {
     const { cards } = this.state;
-    //console.log(JSON.stringify(cards));
     return (
       <main>
         <BrowserRouter>
           <h1>gfK Workshops</h1>
+          <Header />
           <Switch>
             <Route
               path="/create"
