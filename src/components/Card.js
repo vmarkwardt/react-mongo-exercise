@@ -13,7 +13,11 @@ export default function Card({
         <h3>{card.title}</h3>
       </header>
       <p>{card.description}</p>
-      <Tag tagList={card.tags} />
+      <ul className="tagList">
+        {card.tags.map((tag) => (
+          <Tag key={tag} className="tag" tag={tag} />
+        ))}
+      </ul>
       <nav className="card-nav">
         <div>
           <button
