@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Form({ onSubmit }) {
+export function Form({ onSubmit, history }) {
   return (
     <form onSubmit={formSubmit}>
       <label>
@@ -35,10 +35,13 @@ export function Form({ onSubmit }) {
       tags: form.tags.value
         .split(',')
         .map((tag) => tag.trim())
-        .filter((tag) => !!tag), //.filter(Boolean)
+        .filter((tag) => !!tag),
     };
 
     onSubmit({ newCard });
+
+    console.log('% HISTORY: ', history);
+    history.push('/');
   }
 }
 
