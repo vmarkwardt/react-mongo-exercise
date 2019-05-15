@@ -9,6 +9,7 @@ import {
 } from './services';
 import CardList from './components/CardList';
 import { Form } from './components/Form';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 export default class App extends Component {
   state = {
@@ -42,14 +43,30 @@ export default class App extends Component {
     //console.log(JSON.stringify(cards));
     return (
       <main>
-        <h1>gfK Workshops</h1>
-        <Form onSubmit={this.handleSubmit} />
-        <CardList
-          cardList={cards}
-          bookmarkOnClick={this.handleUpdateCard}
-          editOnClick={this.handleEditOnClick}
-          deleteOnClick={this.handleDeleteCard}
-        />
+        <BrowserRouter>
+          <h1>gfK Workshops</h1>
+          <Switch>
+            <Route
+              path="/create"
+              render={(props) => (
+                <Form onSubmit={this.handleSubmit} {...props} />
+              )}
+            />
+            <Route path="/not-found" component={() => <h1>Not Found</h1>} />
+            <Route
+              path="/"
+              render={(props) => (
+                <CardList
+                  cardList={cards}
+                  bookmarkOnClick={this.handleUpdateCard}
+                  editOnClick={this.handleEditOnClick}
+                  deleteOnClick={this.handleDeleteCard}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
+        </BrowserRouter>
       </main>
     );
   }
@@ -71,7 +88,7 @@ export default class App extends Component {
 
   handleUpdateCard = (card) => {
     this.updateState(card);
-    patchCard(card)  
+    patchCard(card)
       .then((card) => console.log('updatedCard: ', card))
       .catch((error) => console.log('Error at update card: ', error));
   };
