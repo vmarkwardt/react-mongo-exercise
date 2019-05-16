@@ -7,20 +7,19 @@ import {
   patchCard,
   deleteCard,
 } from '../services';
-import CardList from '../cards/CardList';
 import { Form } from '../create/Form';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
 import { createGlobalStyle } from 'styled-components';
+import CardsPage from '../cards/CardsPage';
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
  *{
 
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   } 
-
 
 body {
   margin: 0;
@@ -49,11 +48,10 @@ export default function App() {
       .catch((error) => console.log(error));
   }
 
-  //function handleSubmit({ newCard }, history) {
   async function handleCreateCard({ newCard }, history) {
     try {
-      const newCard = await postCards(newCard);
-      setCards([newCard, ...cards]);
+      const card = await postCards(newCard);
+      setCards([card, ...cards]);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +63,7 @@ export default function App() {
   function handleEditOnClick(card) {}
 
   function handleUpdateCard(card) {
-    console.log('handleUpdateCard: ', card);
+    //console.log('handleUpdateCard: ', card);
     updateState(card);
     patchCard(card)
       .then((card) => console.log('updatedCard: ', card))
@@ -88,7 +86,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <GlobalStyles />
+      <GlobalStyle />
       <main>
         <Header />
         <Switch>
@@ -100,12 +98,11 @@ export default function App() {
           <Route
             path="/"
             render={(props) => (
-              <CardList
+              <CardsPage
                 cardList={cards}
                 bookmarkOnClick={handleUpdateCard}
                 editOnClick={handleEditOnClick}
                 deleteOnClick={handleDeleteCard}
-                {...props}
               />
             )}
           />
