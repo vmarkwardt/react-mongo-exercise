@@ -49,7 +49,11 @@ const StyledLi = styled.li`
 `;
 
 export default function Card({
-  card,
+  title,
+  description,
+  tags,
+  isBookmarked,
+  _id,
   bookmarkOnClick,
   editOnClick,
   deleteOnClick,
@@ -57,11 +61,11 @@ export default function Card({
   return (
     <StyledLi className="card">
       <header>
-        <h3>{card.title}</h3>
+        <h3>{title}</h3>
       </header>
-      <p>{card.description}</p>
+      <p>{description}</p>
       <ul className="tagList">
-        {card.tags.map((tag) => (
+        {tags.map((tag) => (
           <Tag key={tag} className="tag" tag={tag} />
         ))}
       </ul>
@@ -76,25 +80,20 @@ export default function Card({
           </button>
           <button
             className="card-button button-delete-card"
-            onClick={() => deleteOnClick(card._id)}
+            onClick={() => deleteOnClick(_id)}
           >
             Delete
           </button>
         </div>
         <button
           className={
-            card.isBookmarked
+            isBookmarked
               ? 'card-button card-button-bookmark bookmarked'
               : 'card-button card-button-bookmark'
           }
-          onClick={() =>
-            bookmarkOnClick({
-              ...card,
-              isBookmarked: !card.isBookmarked,
-            })
-          }
+          onClick={bookmarkOnClick}
         >
-          {card.isBookmarked ? 'bookmarked' : 'bookmark'}
+          {isBookmarked ? 'bookmarked' : 'set bookmark'}
         </button>
       </nav>
     </StyledLi>

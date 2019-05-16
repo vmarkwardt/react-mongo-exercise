@@ -2,14 +2,15 @@ import React from 'react';
 import Card from './Card';
 
 function CardList({ cardList, bookmarkOnClick, editOnClick, deleteOnClick }) {
-  console.log(cardList);
   return (
     <ul>
       {cardList.map((card) => (
         <Card
-          card={card}
+          {...card}
           key={card._id}
-          bookmarkOnClick={bookmarkOnClick}
+          bookmarkOnClick={() =>
+            bookmarkOnClick({ ...card, isBookmarked: !card.isBookmarked })
+          }
           editOnClick={editOnClick}
           deleteOnClick={deleteOnClick}
         />

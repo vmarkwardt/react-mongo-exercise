@@ -6,19 +6,18 @@ import {
   setLocal,
   patchCard,
   deleteCard,
-} from './services';
-import CardList from './components/CardList';
-import { Form } from './components/Form';
+} from '../services';
+import CardList from '../cards/CardList';
+import { Form } from '../create/Form';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Header from './components/Header';
+import Header from '../components/Header';
 
 export default function App() {
   const [cards, setCards] = useState(getLocal('cards') || []);
-  /*
   useEffect(() => {
     getCardsUpdateStateLS();
-  });
-*/
+  }, []);
+
   useEffect(() => {
     setLocal('cards', cards);
   }, [cards]);
@@ -48,6 +47,7 @@ export default function App() {
   function handleEditOnClick(card) {}
 
   function handleUpdateCard(card) {
+    console.log('handleUpdateCard: ', card);
     updateState(card);
     patchCard(card)
       .then((card) => console.log('updatedCard: ', card))
@@ -73,11 +73,11 @@ export default function App() {
       <main>
         <Header />
         <Switch>
+          <Route path="/not-found" component={() => <h1>Not Found</h1>} />
           <Route
             path="/create"
             render={(props) => <Form onSubmit={handleCreateCard} {...props} />}
           />
-          <Route path="/not-found" component={() => <h1>Not Found</h1>} />
           <Route
             path="/"
             render={(props) => (
