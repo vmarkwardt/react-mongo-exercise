@@ -7,11 +7,11 @@ import {
   patchCard,
   deleteCard,
 } from '../services';
-import { Form } from '../create/Form';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
 import { createGlobalStyle } from 'styled-components';
 import CardsPage from '../cards/CardsPage';
+import CreatePage from '../create/CreatePage';
 
 const GlobalStyle = createGlobalStyle`
  *{
@@ -93,7 +93,9 @@ export default function App() {
           <Route path="/not-found" component={() => <h1>Not Found</h1>} />
           <Route
             path="/create"
-            render={(props) => <Form onSubmit={handleCreateCard} {...props} />}
+            render={(props) => (
+              <CreatePage onCardCreate={handleCreateCard} {...props} />
+            )}
           />
           <Route
             path="/"

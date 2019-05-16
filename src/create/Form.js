@@ -32,7 +32,7 @@ const StyledForm = styled.form`
   }
 `;
 
-export function Form({ onSubmit, history }) {
+export default function Form({ onSubmit, history }) {
   return (
     <StyledForm onSubmit={formSubmit}>
       <label>
