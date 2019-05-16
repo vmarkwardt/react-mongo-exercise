@@ -11,6 +11,24 @@ import CardList from '../cards/CardList';
 import { Form } from '../create/Form';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyles = createGlobalStyle`
+ *{
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  } 
+
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: roboto, sans-serif;
+  color: darkslategray;
+  background: papayawhip;
+}`;
 
 export default function App() {
   const [cards, setCards] = useState(getLocal('cards') || []);
@@ -70,6 +88,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <GlobalStyles />
       <main>
         <Header />
         <Switch>
