@@ -14,7 +14,7 @@ import Header from './components/Header';
 
 export default function App() {
   const [cards, setCards] = useState(getLocal('cards') || []);
-
+  /*
   useEffect(() => {
     getCardsUpdateStateLS();
   });
@@ -22,11 +22,11 @@ export default function App() {
   useEffect(() => {
     setLocal('cards', cards);
   }, [cards]);
-
+*/
   function getCardsUpdateStateLS() {
     getCards()
       .then((data) => {
-        setCards({ cards: data });
+        setCards(data);
         setLocal('cards', data);
       })
       .catch((error) => console.log(error));
@@ -35,17 +35,13 @@ export default function App() {
   function handleSubmit({ newCard }) {
     postCards(newCard)
       .then((newCard) => {
-        this.setState({
-          cards: [newCard, ...this.state.cards],
-        });
-        setLocal('cards', this.state.cards);
+        setCards([newCard, ...cards]);
+        setLocal('cards', cards);
       })
       .catch((error) => console.log(error));
   }
 
-  function handleEditOnClick(card) {
-    console.log('tja, wie kann ich nun auf das frm zugreifen?');
-  }
+  function handleEditOnClick(card) {}
 
   function handleUpdateCard(card) {
     updateState(card);
@@ -64,13 +60,13 @@ export default function App() {
     const cardsCopy = [...cards];
     const index = cardsCopy.map((item) => item._id).indexOf(card._id);
     cardsCopy[index] = card;
-    setCards({ cards: cardsCopy });
+    setCards(cardsCopy);
     setLocal('cards', cardsCopy);
   }
 
   return (
-    <main>
-      <BrowserRouter>
+    <BrowserRouter>
+      <main>
         <Header />
         <Switch>
           <Route
@@ -91,7 +87,7 @@ export default function App() {
             )}
           />
         </Switch>
-      </BrowserRouter>
-    </main>
+      </main>
+    </BrowserRouter>
   );
 }
