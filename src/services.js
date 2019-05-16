@@ -11,7 +11,7 @@ export function postCards(card) {
   }).then((res) => res.json());
 }
 
-// 
+//
 export function patchCard(card) {
   return fetch(`/cards/${card._id}`, {
     method: 'PATCH',
@@ -21,8 +21,6 @@ export function patchCard(card) {
 }
 
 export function deleteCard(id) {
-  console.log('services.js -> DELETE Cards: ', id);
-
   return fetch(`/cards/${id}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
