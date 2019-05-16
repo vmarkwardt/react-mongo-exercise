@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   getCards,
   postCards,
@@ -12,66 +12,27 @@ import { Form } from './components/Form';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 
-export default class App extends Component {
-  state = {
-    cards: getLocal('cards') || [],
-  };
+export default function App() {
+  const [cards, setCards] = useState(getLocal('cards') || []);
 
-  componentDidMount() {
-    this.getCardsUpdateStateLS();
-  }
+  useEffect(() => {
+    getCardsUpdateStateLS();
+  });
 
-  componentDidUpdate(prevProps, prevState) {
-    const { cards } = this.state;
-    if (prevState.cards !== cards) {
-      setLocal('cards', cards);
-    }
-  }
+  useEffect(() => {
+    setLocal('cards', cards);
+  }, [cards]);
 
-  getCardsUpdateStateLS() {
+  function getCardsUpdateStateLS() {
     getCards()
       .then((data) => {
-        this.setState({ cards: data });
-        setLocal('cards', this.state.cards);
+        setCards({ cards: data });
+        setLocal('cards', data);
       })
       .catch((error) => console.log(error));
-
-    setLocal('cards', this.state.cards);
   }
 
-  render() {
-    const { cards } = this.state;
-    return (
-      <main>
-        <BrowserRouter>
-          <Header />
-          <Switch>
-            <Route
-              path="/create"
-              render={(props) => (
-                <Form onSubmit={this.handleSubmit} {...props} />
-              )}
-            />
-            <Route path="/not-found" component={() => <h1>Not Found</h1>} />
-            <Route
-              path="/"
-              render={(props) => (
-                <CardList
-                  cardList={cards}
-                  bookmarkOnClick={this.handleUpdateCard}
-                  editOnClick={this.handleEditOnClick}
-                  deleteOnClick={this.handleDeleteCard}
-                  {...props}
-                />
-              )}
-            />
-          </Switch>
-        </BrowserRouter>
-      </main>
-    );
-  }
-
-  handleSubmit = ({ newCard }) => {
+  function handleSubmit({ newCard }) {
     postCards(newCard)
       .then((newCard) => {
         this.setState({
@@ -80,30 +41,57 @@ export default class App extends Component {
         setLocal('cards', this.state.cards);
       })
       .catch((error) => console.log(error));
-  };
+  }
 
-  handleEditOnClick = (card) => {
+  function handleEditOnClick(card) {
     console.log('tja, wie kann ich nun auf das frm zugreifen?');
-  };
+  }
 
-  handleUpdateCard = (card) => {
-    this.updateState(card);
+  function handleUpdateCard(card) {
+    updateState(card);
     patchCard(card)
       .then((card) => console.log('updatedCard: ', card))
       .catch((error) => console.log('Error at update card: ', error));
-  };
+  }
 
-  handleDeleteCard = (_id) => {
+  function handleDeleteCard(_id) {
     deleteCard(_id)
-      .then((data) => this.getCardsUpdateStateLS())
+      .then((data) => getCardsUpdateStateLS())
       .catch((error) => console.log('Error at update card: ', error));
-  };
+  }
 
-  updateState = (card) => {
-    const cardsCopy = [...this.state.cards];
+  function updateState(card) {
+    const cardsCopy = [...cards];
     const index = cardsCopy.map((item) => item._id).indexOf(card._id);
     cardsCopy[index] = card;
-    this.setState({ cards: cardsCopy });
+    setCards({ cards: cardsCopy });
     setLocal('cards', cardsCopy);
-  };
+  }
+
+  return (
+    <main>
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route
+            path="/create"
+            render={(props) => <Form onSubmit={handleSubmit} {...props} />}
+          />
+          <Route path="/not-found" component={() => <h1>Not Found</h1>} />
+          <Route
+            path="/"
+            render={(props) => (
+              <CardList
+                cardList={cards}
+                bookmarkOnClick={handleUpdateCard}
+                editOnClick={handleEditOnClick}
+                deleteOnClick={handleDeleteCard}
+                {...props}
+              />
+            )}
+          />
+        </Switch>
+      </BrowserRouter>
+    </main>
+  );
 }
