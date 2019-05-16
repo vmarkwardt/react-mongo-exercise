@@ -70,9 +70,6 @@ export function Form({ onSubmit, history }) {
         .filter((tag) => !!tag),
     };
 
-    onSubmit({ newCard });
-
-    console.log('% HISTORY: ', history);
-    history.push('/');
+    onSubmit({ newCard }, history);
   }
 }

@@ -18,11 +18,11 @@ export default function App() {
   useEffect(() => {
     getCardsUpdateStateLS();
   });
-
+*/
   useEffect(() => {
     setLocal('cards', cards);
   }, [cards]);
-*/
+
   function getCardsUpdateStateLS() {
     getCards()
       .then((data) => {
@@ -32,13 +32,14 @@ export default function App() {
       .catch((error) => console.log(error));
   }
 
-  function handleSubmit({ newCard }) {
+  function handleSubmit({ newCard }, history) {
     postCards(newCard)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         setLocal('cards', cards);
       })
       .catch((error) => console.log(error));
+    history.push('/');
   }
 
   function handleEditOnClick(card) {}
