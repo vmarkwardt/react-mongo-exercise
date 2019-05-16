@@ -32,13 +32,16 @@ export default function App() {
       .catch((error) => console.log(error));
   }
 
-  function handleSubmit({ newCard }, history) {
-    postCards(newCard)
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
-        setLocal('cards', cards);
-      })
-      .catch((error) => console.log(error));
+  //function handleSubmit({ newCard }, history) {
+  async function handleCreateCard({ newCard }, history) {
+    try {
+      const newCard = await postCards(newCard);
+      setCards([newCard, ...cards]);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLocal('cards', cards);
     history.push('/');
   }
 
@@ -72,7 +75,7 @@ export default function App() {
         <Switch>
           <Route
             path="/create"
-            render={(props) => <Form onSubmit={handleSubmit} {...props} />}
+            render={(props) => <Form onSubmit={handleCreateCard} {...props} />}
           />
           <Route path="/not-found" component={() => <h1>Not Found</h1>} />
           <Route

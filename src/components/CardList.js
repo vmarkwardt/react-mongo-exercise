@@ -1,7 +1,8 @@
 import React from 'react';
 import Card from './Card';
 
-export default function CardList({ cardList, bookmarkOnClick, editOnClick,deleteOnClick }) {
+function CardList({ cardList, bookmarkOnClick, editOnClick, deleteOnClick }) {
+  console.log(cardList);
   return (
     <ul>
       {cardList.map((card) => (
@@ -16,3 +17,5 @@ export default function CardList({ cardList, bookmarkOnClick, editOnClick,delete
     </ul>
   );
 }
+
+export default CardList;
