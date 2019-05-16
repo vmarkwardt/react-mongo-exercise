@@ -62,18 +62,23 @@ export default function App() {
 
   function handleEditOnClick(card) {}
 
-  function handleUpdateCard(card) {
-    //console.log('handleUpdateCard: ', card);
-    updateState(card);
-    patchCard(card)
-      .then((card) => console.log('updatedCard: ', card))
-      .catch((error) => console.log('Error at update card: ', error));
+  async function handleUpdateCard(card) {
+    try {
+      const newCard = await patchCard(card);
+      updateState(newCard);
+      console.log('updatedCard: ', newCard);
+    } catch (error) {
+      console.log('Error at update card: ', error);
+    }
   }
 
-  function handleDeleteCard(_id) {
-    deleteCard(_id)
-      .then((data) => getCardsUpdateStateLS())
-      .catch((error) => console.log('Error at update card: ', error));
+  async function handleDeleteCard(_id) {
+    try {
+      const card = await deleteCard(_id);
+    } catch (error) {
+      console.log('Error at update card: ', error);
+    }
+    getCardsUpdateStateLS();
   }
 
   function updateState(card) {
