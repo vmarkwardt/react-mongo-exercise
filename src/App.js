@@ -44,7 +44,6 @@ export default class App extends Component {
     return (
       <main>
         <BrowserRouter>
-          <h1>gfK Workshops</h1>
           <Header />
           <Switch>
             <Route

@@ -1,8 +1,40 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+  background: peachpuff;
+  margin: 10px 0;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & * {
+    margin: 5px;
+  }
+
+  & > button {
+    align-self: center;
+    padding: 10px;
+  }
+
+  & > textarea,
+  label {
+    margin: 5px;
+    flex-grow: 1;
+  }
+
+  input,
+  textarea {
+    padding: 5px;
+    font-size: 1em;
+    width: 100%;
+  }
+`;
 
 export function Form({ onSubmit, history }) {
   return (
-    <form onSubmit={formSubmit}>
+    <StyledForm onSubmit={formSubmit}>
       <label>
         Title:
         <input name="title" type="text" placeholder="title" />
@@ -22,7 +54,7 @@ export function Form({ onSubmit, history }) {
         />
       </label>
       <button> Add Card </button>
-    </form>
+    </StyledForm>
   );
 
   function formSubmit(event) {
@@ -44,16 +76,3 @@ export function Form({ onSubmit, history }) {
     history.push('/');
   }
 }
-
-/*
-Create a Form component to create new Cards
-
-Make sure to create an Array of Strings from the tag String
-Add that Form above the CardList
-
-Add a function postCard to services
-
-Use postCard in the Form and update the state when the server responds with a new card
-
-
-*/
